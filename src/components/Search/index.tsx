@@ -2,7 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { debounce, throttle, Cancelable } from 'lodash';
 import { gql } from 'apollo-boost';
 import { useQuery, useLazyQuery, useApolloClient } from '@apollo/react-hooks';
-
+import { StyledInput } from './StyledInput';
+import { InputContainer } from './InputContainer';
 interface Character {
   id: number;
   name: string;
@@ -10,7 +11,7 @@ interface Character {
 }
 
 interface CharactersData {
-  rocketInventory: Character[];
+  results: Character[];
 }
 
 interface CharactersVars {
@@ -29,57 +30,22 @@ const GET_CHARACTERS_BY_NAME = gql`
   }
 `;
 
-// const GET_LOCAL_CHARACTERS = gql`
-//   query Characters($name: String) {
-//     characters(filter: { name: $name }) @client {
-//       results @client {
-//         name
-//         image
-//         id
-//       }
-//     }
-//   }
-// `;
-const GET_FILTER = gql`
-  query Filter {
-    filter @client
-  }
-`;
-
 export const Search: React.FC = () => {
-  const [cards, setCards] = useState([]);
   const [name, setName] = useState('');
 
   const [getCharactersByName, { loading, data }] = useLazyQuery<
     CharactersData,
     CharactersVars
-  >(GET_CHARACTERS_BY_NAME);
+  >(GET_CHARACTERS_BY_NAME, { fetchPolicy: 'network-only' });
 
-  const localData = useQuery(GET_FILTER);
-  console.log('localData', localData);
-  console.log('Data', data);
-  const client = useApolloClient();
-  console.log(
-    '--->',
-    client.readFragment({
-      id: 'characters',
-      fragment: gql`
-        fragment characters on Characters {
-          results
-        }
-      `,
-    })
-  );
-  console.log('client', client.cache.extract());
   useEffect(() => {
     const cb = debounce((value: string) => {
-      client.writeData({ data: { name: value } });
       getCharactersByName({ variables: { name: value } });
     }, 300);
 
     name.length > 2 && cb(name);
     return cb.cancel;
-  }, [name, getCharactersByName, client]);
+  }, [name, getCharactersByName]);
 
   const onChange = (event: React.FormEvent<HTMLInputElement>): void => {
     const {
@@ -89,5 +55,9 @@ export const Search: React.FC = () => {
     setName(value);
   };
 
-  return <input value={name} type="text" name="name" onChange={onChange} />;
+  return (
+    <InputContainer>
+      <StyledInput value={name} type="text" name="name" onChange={onChange} />
+    </InputContainer>
+  );
 };
