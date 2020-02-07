@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { debounce, throttle, Cancelable } from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { debounce } from 'lodash';
 import { gql } from 'apollo-boost';
-import { useQuery, useLazyQuery, useApolloClient } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { StyledInput } from './StyledInput';
 import { InputContainer } from './InputContainer';
 interface Character {
@@ -33,10 +33,10 @@ const GET_CHARACTERS_BY_NAME = gql`
 export const Search: React.FC = () => {
   const [name, setName] = useState('');
 
-  const [getCharactersByName, { loading, data }] = useLazyQuery<
-    CharactersData,
-    CharactersVars
-  >(GET_CHARACTERS_BY_NAME, { fetchPolicy: 'network-only' });
+  const [getCharactersByName] = useLazyQuery<CharactersData, CharactersVars>(
+    GET_CHARACTERS_BY_NAME,
+    { fetchPolicy: 'network-only' }
+  );
 
   useEffect(() => {
     const cb = debounce((value: string) => {

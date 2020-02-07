@@ -34,12 +34,6 @@ cache.writeData({
       results: [],
     },
     charactersOnParty: [],
-    partyRick: {
-      __typename: 'Character',
-    },
-    partyMorty: {
-      __typename: 'Character',
-    },
   },
 });
 
@@ -56,7 +50,6 @@ const client = new ApolloClient({
         ~character.name.indexOf('Rick') &&
           cache.writeData({
             data: {
-              partyRick: character,
               charactersOnParty: [character, charactersOnParty[1] || null],
             },
           });
@@ -64,7 +57,6 @@ const client = new ApolloClient({
         ~character.name.indexOf('Morty') &&
           cache.writeData({
             data: {
-              partyMorty: character,
               charactersOnParty: [charactersOnParty[0] || null, character],
             },
           });
@@ -72,7 +64,6 @@ const client = new ApolloClient({
         return null;
       },
     },
-    Query: {},
   },
 });
 

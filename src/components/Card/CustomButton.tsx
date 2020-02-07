@@ -15,6 +15,4 @@ export const CustomButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  line-height: 100%;
 `;

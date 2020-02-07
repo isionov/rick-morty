@@ -1,10 +1,10 @@
-import React, { useEffect, MouseEvent } from 'react';
+import React from 'react';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import { CustomButton } from './CustomButton';
 import { CardContainer } from './CardContainer';
 import { StyledImage } from './StyledImage';
-
+import { ReactComponent as Logo } from './close.svg';
 type Card = {
   id: number;
   name: string;
@@ -28,19 +28,18 @@ export const Card = ({ card, deleteCharacter }: Props) => {
     variables: { character: card },
   });
   const onDelete = (e: React.MouseEvent) => {
-    console.log('DELETE');
     e.stopPropagation();
     deleteCharacter((oldArray: []) => [...oldArray, id]);
   };
   const onAdd = () => {
-    console.log('ADD');
     sendToParty(ADD_CHARACTER_TO_PARTY);
   };
+
   return (
     <CardContainer onClick={onAdd}>
       <StyledImage imageUrl={image}>Rick</StyledImage>
       <CustomButton type="button" onClick={onDelete}>
-        x
+        <Logo width="10px" />
       </CustomButton>
     </CardContainer>
   );
