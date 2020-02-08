@@ -8,6 +8,8 @@ import { List } from '../List';
 import { Party } from '../Party';
 import { Container } from '../Container';
 import { PARTY_STATE } from '../../GQLQueries';
+import { Character } from '../../Types';
+import { isOurPartyPerson } from '../../helpers';
 
 const cache = new InMemoryCache();
 const link = createHttpLink({ uri: 'https://rickandmortyapi.com/graphql' });
@@ -53,18 +55,22 @@ const client = new ApolloClient({
   typeDefs,
   resolvers: {
     Mutation: {
-      addCharacterToParty: (_parent, { character }, { cache }) => {
+      addCharacterToParty: (
+        _parent,
+        { character }: { character: Character },
+        { cache }
+      ) => {
         const data = cache.readQuery({
           query: PARTY_STATE,
         });
-        character.name.includes('Rick') &&
+        isOurPartyPerson(character.name, 'Rick') &&
           cache.writeData({
             data: {
               party: { ...data.party, rick: character },
             },
           });
 
-        character.name.includes('Morty') &&
+        isOurPartyPerson(character.name, 'Morty') &&
           cache.writeData({
             data: {
               party: { ...data.party, morty: character },

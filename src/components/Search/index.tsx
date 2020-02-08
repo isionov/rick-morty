@@ -5,7 +5,7 @@ import { StyledInput } from './StyledInput';
 import { StyledInputContainer } from './StyledInputContainer';
 import { Characters } from '../../Types';
 import { GET_CHARACTERS_BY_NAME } from '../../GQLQueries';
-
+import { mayRequest } from '../../helpers';
 type CharactersVars = {
   name: string;
 };
@@ -23,7 +23,7 @@ export const Search: React.FC = () => {
       getCharactersByName({ variables: { name: value } });
     }, 300);
 
-    name.length > 2 && cb(name);
+    mayRequest(name) && cb(name);
     return cb.cancel;
   }, [name, getCharactersByName]);
 
