@@ -8,12 +8,19 @@ import { List } from '../List';
 import { Party } from '../Party';
 import { Container } from '../Container';
 
-const LocalCharacters = gql`
-  query PartyList {
-    charactersOnParty @client {
-      id
-      name
-      image
+const PartyState = gql`
+  query Party {
+    party @client {
+      rick {
+        id
+        name
+        image
+      }
+      morty {
+        id
+        name
+        image
+      }
     }
   }
 `;
@@ -24,6 +31,11 @@ const link = createHttpLink({ uri: 'https://rickandmortyapi.com/graphql' });
 const typeDefs = gql`
   type Query {
     charactersOnParty: [Character]!
+    party: Party!
+  }
+  type Party {
+    rick: Character!
+    morty: Character!
   }
 `;
 
@@ -33,7 +45,21 @@ cache.writeData({
       __typename: 'Characters',
       results: [],
     },
-    charactersOnParty: [],
+    party: {
+      __typename: 'Party',
+      rick: {
+        __typename: 'Character',
+        id: 'rickInitial',
+        name: null,
+        image: null,
+      },
+      morty: {
+        __typename: 'Character',
+        id: 'mortyInitial',
+        name: null,
+        image: null,
+      },
+    },
   },
 });
 
@@ -44,20 +70,20 @@ const client = new ApolloClient({
   resolvers: {
     Mutation: {
       addCharacterToParty: (_parent, { character }, { cache }) => {
-        const { charactersOnParty } = cache.readQuery({
-          query: LocalCharacters,
+        const data = cache.readQuery({
+          query: PartyState,
         });
         ~character.name.indexOf('Rick') &&
           cache.writeData({
             data: {
-              charactersOnParty: [character, charactersOnParty[1] || null],
+              party: { ...data.party, rick: character },
             },
           });
 
         ~character.name.indexOf('Morty') &&
           cache.writeData({
             data: {
-              charactersOnParty: [charactersOnParty[0] || null, character],
+              party: { ...data.party, morty: character },
             },
           });
 

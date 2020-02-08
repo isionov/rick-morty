@@ -5,15 +5,11 @@ import { CustomButton } from './CustomButton';
 import { CardContainer } from './CardContainer';
 import { StyledImage } from './StyledImage';
 import { ReactComponent as Logo } from './close.svg';
-type Card = {
-  id: number;
-  name: string;
-  image: string;
-};
+import { Character } from '../../Types';
 
 type Props = {
   deleteCharacter: Function;
-  card: Card;
+  card: Character;
 };
 
 const ADD_CHARACTER_TO_PARTY = gql`
@@ -29,7 +25,7 @@ export const Card = ({ card, deleteCharacter }: Props) => {
   });
   const onDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteCharacter((oldArray: []) => [...oldArray, id]);
+    deleteCharacter((oldArray: string[]) => [...oldArray, id]);
   };
   const onAdd = () => {
     sendToParty(ADD_CHARACTER_TO_PARTY);

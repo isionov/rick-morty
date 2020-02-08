@@ -4,15 +4,7 @@ import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { StyledInput } from './StyledInput';
 import { InputContainer } from './InputContainer';
-interface Character {
-  id: number;
-  name: string;
-  image: string;
-}
-
-interface CharactersData {
-  results: Character[];
-}
+import { Characters } from '../../Types';
 
 interface CharactersVars {
   name: string;
@@ -33,7 +25,7 @@ const GET_CHARACTERS_BY_NAME = gql`
 export const Search: React.FC = () => {
   const [name, setName] = useState('');
 
-  const [getCharactersByName] = useLazyQuery<CharactersData, CharactersVars>(
+  const [getCharactersByName] = useLazyQuery<Characters, CharactersVars>(
     GET_CHARACTERS_BY_NAME,
     { fetchPolicy: 'network-only' }
   );

@@ -7,31 +7,47 @@ import { StyledImage } from '../Card/StyledImage';
 import { PartyContainer } from './PartyContainer';
 import { PartyContant } from './PartyContant';
 
-const GET_PARTY = gql`
-  query GetParty {
-    charactersOnParty @client(always: true) {
-      id
-      name
-      image
+const PartyState = gql`
+  query Party {
+    party @client(always: true) {
+      rick {
+        id
+        name
+        image
+      }
+      morty {
+        id
+        name
+        image
+      }
     }
   }
 `;
+interface OnParty {
+  party: {
+    rick: {
+      image: string;
+    };
+    morty: {
+      image: string;
+    };
+  };
+}
 
 export const Party = () => {
-  const { data } = useQuery(GET_PARTY);
-  const rickImage =
-    data.charactersOnParty[0] && data.charactersOnParty[0].image;
-  const mortyImage =
-    data.charactersOnParty[1] && data.charactersOnParty[1].image;
+  const { data } = useQuery<OnParty, any>(PartyState);
+  const rick = data && data.party.rick.image;
+  const morty = data && data.party.morty.image;
+
   return (
     <PartyContainer>
       <Title>Party</Title>
       <PartyContant>
         <CardContainer>
-          <StyledImage imageUrl={rickImage}>Rick</StyledImage>
+          <StyledImage imageUrl={rick || ''}>Rick</StyledImage>
         </CardContainer>
         <CardContainer>
-          <StyledImage imageUrl={mortyImage}>Morty</StyledImage>
+          <StyledImage imageUrl={morty || ''}>Morty</StyledImage>
         </CardContainer>
       </PartyContant>
     </PartyContainer>

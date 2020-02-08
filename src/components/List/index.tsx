@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import { Card } from '../Card';
 import styled from 'styled-components';
+import { Character, Characters } from '../../Types';
 
 const ListContainer = styled.div`
   display: flex;
@@ -22,15 +23,6 @@ const LocalCharacters = gql`
   }
 `;
 
-export interface Character {
-  id: number;
-  name: string;
-  image: string;
-}
-interface Characters {
-  results: Character[];
-}
-
 interface CharactersData {
   characters: Characters;
 }
@@ -41,7 +33,7 @@ interface CharactersVars {
 
 export const List = () => {
   const [deletedCharactersId, addDeletedCharactersId] = useState(
-    [] as number[]
+    [] as string[]
   );
   const { data } = useQuery<CharactersData, CharactersVars>(LocalCharacters);
 
