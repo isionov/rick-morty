@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CardContainer = styled.div`
+export const StyledCardContainer = styled.div`
   box-sizing: border-box;
   width: 25%;
   height: 250px;

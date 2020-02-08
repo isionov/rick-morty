@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { CustomButton } from './CustomButton';
-import { CardContainer } from './CardContainer';
+import { StyledButton } from './StyledButton';
+import { StyledCardContainer } from './StyledCardContainer';
 import { StyledImage } from './StyledImage';
 import { ReactComponent as Logo } from './close.svg';
 import { Character } from '../../Types';
@@ -25,11 +25,11 @@ export const Card = ({ card, deleteCharacter }: Props) => {
   };
 
   return (
-    <CardContainer onClick={onAdd}>
+    <StyledCardContainer onClick={onAdd}>
       <StyledImage imageUrl={image}>Rick</StyledImage>
-      <CustomButton type="button" onClick={onDelete}>
+      <StyledButton type="button" onClick={onDelete}>
         <Logo width="10px" />
-      </CustomButton>
-    </CardContainer>
+      </StyledButton>
+    </StyledCardContainer>
   );
 };

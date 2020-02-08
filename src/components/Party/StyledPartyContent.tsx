@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PartyContant = styled.div`
+export const StyledPartyContent = styled.div`
   display: flex;
   justify-content: center;
 `;

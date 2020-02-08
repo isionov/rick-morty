@@ -57,14 +57,14 @@ const client = new ApolloClient({
         const data = cache.readQuery({
           query: PARTY_STATE,
         });
-        ~character.name.indexOf('Rick') &&
+        character.name.includes('rick') &&
           cache.writeData({
             data: {
               party: { ...data.party, rick: character },
             },
           });
 
-        ~character.name.indexOf('Morty') &&
+        character.name.includes('morty') &&
           cache.writeData({
             data: {
               party: { ...data.party, morty: character },

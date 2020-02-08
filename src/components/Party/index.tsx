@@ -1,10 +1,10 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Title } from './Title';
-import { CardContainer } from '../Card/CardContainer';
+import { StyledTitle } from './StyledTitle';
+import { StyledCardContainer } from '../Card/StyledCardContainer';
 import { StyledImage } from '../Card/StyledImage';
-import { PartyContainer } from './PartyContainer';
-import { PartyContant } from './PartyContant';
+import { StyledPartyContainer } from './StyledPartyContainer';
+import { StyledPartyContent } from './StyledPartyContent';
 import { PARTY_STATE } from '../../GQLQueries';
 import { OnParty } from '../../Types';
 
@@ -14,16 +14,16 @@ export const Party = () => {
   const morty = data && data.party.morty.image;
 
   return (
-    <PartyContainer>
-      <Title>Party</Title>
-      <PartyContant>
-        <CardContainer>
+    <StyledPartyContainer>
+      <StyledTitle>Party</StyledTitle>
+      <StyledPartyContent>
+        <StyledCardContainer>
           <StyledImage imageUrl={rick || ''}>Rick</StyledImage>
-        </CardContainer>
-        <CardContainer>
+        </StyledCardContainer>
+        <StyledCardContainer>
           <StyledImage imageUrl={morty || ''}>Morty</StyledImage>
-        </CardContainer>
-      </PartyContant>
-    </PartyContainer>
+        </StyledCardContainer>
+      </StyledPartyContent>
+    </StyledPartyContainer>
   );
 };

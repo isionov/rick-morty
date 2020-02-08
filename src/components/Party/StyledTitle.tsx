@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Title = styled.div`
+export const StyledTitle = styled.div`
   text-align: center;
   padding: 0 ${4 / 3}%;
   font-weight: bold;

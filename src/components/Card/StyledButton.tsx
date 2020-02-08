@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CustomButton = styled.button`
+export const StyledButton = styled.button`
   position: absolute;
   display: block;
   top: 20px;

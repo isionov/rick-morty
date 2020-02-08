@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { StyledInput } from './StyledInput';
-import { InputContainer } from './InputContainer';
+import { StyledInputContainer } from './StyledInputContainer';
 import { Characters } from '../../Types';
 import { GET_CHARACTERS_BY_NAME } from '../../GQLQueries';
 
@@ -36,8 +36,8 @@ export const Search: React.FC = () => {
   };
 
   return (
-    <InputContainer>
+    <StyledInputContainer>
       <StyledInput value={name} type="text" name="name" onChange={onChange} />
-    </InputContainer>
+    </StyledInputContainer>
   );
 };
