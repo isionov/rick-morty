@@ -1,26 +1,13 @@
 import React, { useState } from 'react';
-import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import { Card } from '../Card';
 import styled from 'styled-components';
 import { Character, Characters } from '../../Types';
-
+import { LOCAL_CHARACTERS } from '../../GQLQueries';
 const ListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-`;
-
-const LocalCharacters = gql`
-  query LocalCharacters {
-    characters {
-      results {
-        id @client
-        name @client
-        image @client
-      }
-    }
-  }
 `;
 
 interface CharactersData {
@@ -35,7 +22,7 @@ export const List = () => {
   const [deletedCharactersId, addDeletedCharactersId] = useState(
     [] as string[]
   );
-  const { data } = useQuery<CharactersData, CharactersVars>(LocalCharacters);
+  const { data } = useQuery<CharactersData, CharactersVars>(LOCAL_CHARACTERS);
 
   const filteredArray =
     data?.characters.results &&

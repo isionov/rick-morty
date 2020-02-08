@@ -7,23 +7,7 @@ import { Search } from '../Search';
 import { List } from '../List';
 import { Party } from '../Party';
 import { Container } from '../Container';
-
-const PartyState = gql`
-  query Party {
-    party @client {
-      rick {
-        id
-        name
-        image
-      }
-      morty {
-        id
-        name
-        image
-      }
-    }
-  }
-`;
+import { PARTY_STATE } from '../../GQLQueries';
 
 const cache = new InMemoryCache();
 const link = createHttpLink({ uri: 'https://rickandmortyapi.com/graphql' });
@@ -71,7 +55,7 @@ const client = new ApolloClient({
     Mutation: {
       addCharacterToParty: (_parent, { character }, { cache }) => {
         const data = cache.readQuery({
-          query: PartyState,
+          query: PARTY_STATE,
         });
         ~character.name.indexOf('Rick') &&
           cache.writeData({

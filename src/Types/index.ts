@@ -7,3 +7,14 @@ export type Character = {
 export type Characters = {
   results: Character[];
 };
+
+export type OnParty = {
+  party: {
+    rick: {
+      image: string;
+    };
+    morty: {
+      image: string;
+    };
+  };
+};

@@ -1,22 +1,15 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import { CustomButton } from './CustomButton';
 import { CardContainer } from './CardContainer';
 import { StyledImage } from './StyledImage';
 import { ReactComponent as Logo } from './close.svg';
 import { Character } from '../../Types';
-
+import { ADD_CHARACTER_TO_PARTY } from '../../GQLQueries';
 type Props = {
   deleteCharacter: Function;
   card: Character;
 };
-
-const ADD_CHARACTER_TO_PARTY = gql`
-  mutation AddCharacterToParty($character: Character!) {
-    addCharacterToParty(character: $character) @client
-  }
-`;
 
 export const Card = ({ card, deleteCharacter }: Props) => {
   const { id, image } = card;

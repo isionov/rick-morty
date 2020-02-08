@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
-import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { StyledInput } from './StyledInput';
 import { InputContainer } from './InputContainer';
 import { Characters } from '../../Types';
+import { GET_CHARACTERS_BY_NAME } from '../../GQLQueries';
 
-interface CharactersVars {
+type CharactersVars = {
   name: string;
-}
-
-const GET_CHARACTERS_BY_NAME = gql`
-  query Characters($name: String) {
-    characters(filter: { name: $name }) @connection(key: "characters") {
-      results {
-        name
-        image
-        id
-      }
-    }
-  }
-`;
+};
 
 export const Search: React.FC = () => {
   const [name, setName] = useState('');
