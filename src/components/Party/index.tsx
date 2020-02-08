@@ -10,8 +10,8 @@ import { OnParty } from '../../Types';
 
 export const Party = () => {
   const { data } = useQuery<OnParty, any>(PARTY_STATE);
-  const rick = data && data.party.rick.image;
-  const morty = data && data.party.morty.image;
+  const rick = data?.party.rick.image;
+  const morty = data?.party.morty.image;
 
   return (
     <StyledPartyContainer>
