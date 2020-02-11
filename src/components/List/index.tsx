@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Card } from '../Card';
 import styled from 'styled-components';
-import { Character, Characters } from '../../Types';
+import { Characters } from '../../Types';
 import { LOCAL_CHARACTERS } from '../../GQLQueries';
+import { cardFilter } from '../../helpers';
+
 const ListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -23,12 +25,8 @@ export const List = () => {
     [] as string[]
   );
   const { data } = useQuery<CharactersData, CharactersVars>(LOCAL_CHARACTERS);
-
-  const filteredArray = data?.characters?.results?.filter(
-    ({ id }: Character) => {
-      return deletedCharactersId.indexOf(id) === -1;
-    }
-  );
+  const allCards = data?.characters?.results;
+  const filteredArray = cardFilter(allCards, deletedCharactersId);
 
   return (
     <ListContainer>

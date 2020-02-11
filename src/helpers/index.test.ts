@@ -1,4 +1,9 @@
-import { isOurPartyPerson, mayRequest, debouncedFetch } from './index';
+import {
+  isOurPartyPerson,
+  mayRequest,
+  debouncedFetch,
+  cardFilter,
+} from './index';
 import sinon from 'sinon';
 
 test('Check Rick A is our party character Rick', () => {
@@ -41,4 +46,22 @@ test('Hook will call after 300ms', () => {
   expect(myMock).toHaveBeenCalledTimes(1);
 
   clock.restore();
+});
+
+test('Check card filtration', () => {
+  const all3Cards = [
+    { id: '1', name: '2', image: '3' },
+    { id: '2', name: '3', image: '4' },
+    { id: '3', name: '4', image: '5' },
+  ];
+  const emptyCards: [] = [];
+  const deleted2cards = ['1', '2'];
+  const deleted3cards = ['1', '2', '3'];
+
+  expect(cardFilter(all3Cards, deleted2cards)).toEqual([
+    { id: '3', name: '4', image: '5' },
+  ]);
+
+  expect(cardFilter(all3Cards, deleted3cards)).toEqual([]);
+  expect(cardFilter(emptyCards, deleted3cards)).toEqual([]);
 });

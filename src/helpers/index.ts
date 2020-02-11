@@ -1,7 +1,7 @@
 import { debounce } from 'lodash';
 import { QueryLazyOptions } from '@apollo/react-hooks';
 import { EffectCallback } from 'react';
-import { CharactersVars } from '../Types';
+import { CharactersVars, Character } from '../Types';
 
 export const isOurPartyPerson = (name: string, who: string): boolean => {
   return name.includes(who);
@@ -19,4 +19,13 @@ export const debouncedFetch = (
 
   mayRequest(name) && cb(name);
   return cb.cancel;
+};
+
+export const cardFilter = (
+  allCards: Character[] | undefined,
+  deletedCards: string[]
+): Character[] | undefined => {
+  return allCards?.filter(({ id }: Character) => {
+    return deletedCards.indexOf(id) === -1;
+  });
 };
