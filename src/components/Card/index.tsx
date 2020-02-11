@@ -1,8 +1,10 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { StyledButton } from './StyledButton';
-import { StyledCardContainer } from './StyledCardContainer';
-import { StyledImage } from './StyledImage';
+import {
+  StyledButton,
+  StyledCardContainer,
+  StyledImage,
+} from './StyledComponents';
 import { ReactComponent as Logo } from './close.svg';
 import { Character } from '../../Types';
 import { ADD_CHARACTER_TO_PARTY } from '../../GQLQueries';

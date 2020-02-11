@@ -18,3 +18,7 @@ export type OnParty = {
     };
   };
 };
+
+export type CharactersVars = {
+  name: string;
+};

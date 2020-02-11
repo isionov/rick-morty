@@ -8,3 +8,8 @@ export const StyledInput = styled.input`
   width: 100%;
   display: block;
 `;
+
+export const StyledInputContainer = styled.div`
+  padding: 0 ${4 / 3}%;
+  display: flex;
+`;

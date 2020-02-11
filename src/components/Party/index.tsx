@@ -1,17 +1,18 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { StyledTitle } from './StyledTitle';
-import { StyledCardContainer } from '../Card/StyledCardContainer';
-import { StyledImage } from '../Card/StyledImage';
-import { StyledPartyContainer } from './StyledPartyContainer';
-import { StyledPartyContent } from './StyledPartyContent';
+import { StyledCardContainer, StyledImage } from '../Card/StyledComponents';
+import {
+  StyledPartyContainer,
+  StyledPartyContent,
+  StyledTitle,
+} from './StyledComponents';
 import { PARTY_STATE } from '../../GQLQueries';
 import { OnParty } from '../../Types';
 
 export const Party = () => {
   const { data } = useQuery<OnParty, any>(PARTY_STATE);
-  const rick = data?.party.rick.image;
-  const morty = data?.party.morty.image;
+  const rick = data?.party?.rick?.image;
+  const morty = data?.party?.morty?.image;
 
   return (
     <StyledPartyContainer>

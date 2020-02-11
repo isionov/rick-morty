@@ -6,7 +6,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { Search } from '../Search';
 import { List } from '../List';
 import { Party } from '../Party';
-import { Container } from '../Container';
+import { Container } from '../StyledContainer';
 import { PARTY_STATE } from '../../GQLQueries';
 import { Character } from '../../Types';
 import { isOurPartyPerson } from '../../helpers';

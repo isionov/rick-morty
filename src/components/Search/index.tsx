@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { debounce } from 'lodash';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { StyledInput } from './StyledInput';
-import { StyledInputContainer } from './StyledInputContainer';
-import { Characters } from '../../Types';
+import { StyledInput, StyledInputContainer } from './StyledComponents';
+import { Characters, CharactersVars } from '../../Types';
 import { GET_CHARACTERS_BY_NAME } from '../../GQLQueries';
-import { mayRequest } from '../../helpers';
-type CharactersVars = {
-  name: string;
-};
+import { debouncedFetch } from '../../helpers';
 
 export const Search: React.FC = () => {
   const [name, setName] = useState('');
@@ -18,14 +13,10 @@ export const Search: React.FC = () => {
     { fetchPolicy: 'network-only' }
   );
 
-  useEffect(() => {
-    const cb = debounce((value: string) => {
-      getCharactersByName({ variables: { name: value } });
-    }, 300);
-
-    mayRequest(name) && cb(name);
-    return cb.cancel;
-  }, [name, getCharactersByName]);
+  useEffect(debouncedFetch(getCharactersByName, name), [
+    getCharactersByName,
+    name,
+  ]);
 
   const onChange = (event: React.FormEvent<HTMLInputElement>): void => {
     const {

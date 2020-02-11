@@ -24,9 +24,11 @@ export const List = () => {
   );
   const { data } = useQuery<CharactersData, CharactersVars>(LOCAL_CHARACTERS);
 
-  const filteredArray = data?.characters.results.filter(({ id }: Character) => {
-    return deletedCharactersId.indexOf(id) === -1;
-  });
+  const filteredArray = data?.characters?.results?.filter(
+    ({ id }: Character) => {
+      return deletedCharactersId.indexOf(id) === -1;
+    }
+  );
 
   return (
     <ListContainer>
